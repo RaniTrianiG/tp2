@@ -55,5 +55,18 @@
             @yield('content')
         </main>
     </div>
+		<script type="text/javascript">
+			window.addEventListener('load', function() {
+				$('#reload').click(function () {
+						$.ajax({
+								type: 'GET',
+								url: 'reload-captcha',
+								success: function (data) {
+										$(".captcha span").html(data.captcha);
+								}
+						});
+				});
+			})
+    </script>
 	</body>
 </html>

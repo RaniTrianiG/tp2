@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -16,18 +17,29 @@ class LoginController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string',
-        ]);
+      $validator = Validator::make($request->all(), [
+          'email' => [
+              'required',
+              'email'
+          ],
+          'password' => [
+              'required'
+          ],
+          'captcha' => 'required|captcha',
+        ],
+        ['captcha.captcha' => 'Invalid captcha code.']);
 
-        $credentials = $request->only('email', 'password');
-
-        if (Auth::attempt($credentials)) {
+        if ($validator->fails()) {
+          $errors = $validator->messages();
+          return redirect('login')->with('error', 'LMAO');
+        } else {
+          $credentials = $request->only('email', 'password');
+          if (Auth::attempt($credentials)) {
             return redirect()->intended('home');
+          } else {
+            return redirect('login')->with('error', 'LMAO2');
+          }
         }
-
-        return redirect('login')->with('error', 'Oppes! You have entered invalid credentials');
     }
 
     public function logout() {
@@ -40,5 +52,10 @@ class LoginController extends Controller
     {
 
       return view('auth.home');
+    }
+
+    public function reloadCaptcha()
+    {
+        return response()->json(['captcha'=> captcha_img()]);
     }
 }

@@ -24,7 +24,7 @@ class ResetPasswordController extends Controller
             'password' => [
 				'required', 
 				'string', 
-				Password::min(8)
+				Password::min(10)
 				->mixedCase()
 				->numbers()
 				->symbols()

@@ -36,6 +36,24 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <div class="col-md-4 text-right">
+                                <div class="captcha">
+                                    <span>{!! captcha_img() !!}</span>
+                                    <button type="button" class="btn btn-danger" class="reload" id="reload">
+                                        &#x21bb;
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <input id="captcha" type="text" class="form-control @error('captcha') is-invalid @enderror" name="captcha" required>
+                                @error('captcha')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <div class="col-md-6 offset-md-4">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
