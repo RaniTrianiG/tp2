@@ -17,6 +17,10 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 |
 */
 
+Route::get('/', function () {
+    return view('welcome');
+});
+
 Route::get('register', [RegisterController::class, 'register']);
 Route::post('register', [RegisterController::class, 'store'])->name('register');
 
