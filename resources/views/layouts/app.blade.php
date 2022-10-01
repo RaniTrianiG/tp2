@@ -8,6 +8,8 @@
 			<title>{{ config('app.name', 'Laravel') }}</title>
 			<!-- Scripts -->
 			@vite(['resources/js/app.js'])
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+            {!! RecaptchaV3::initJs() !!}
 			<!-- Fonts -->
 			<link rel="dns-prefetch" href="//fonts.gstatic.com">
 			<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
